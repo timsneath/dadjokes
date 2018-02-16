@@ -1,0 +1,25 @@
+<component name="libraryTable">
+  <library name="Dart SDK">
+    <CLASSES>
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/async" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/collection" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/convert" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/core" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/developer" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/html" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/indexed_db" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/io" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/isolate" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/js" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/js_util" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/math" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/mirrors" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/svg" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/typed_data" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/web_audio" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/web_gl" />
+      <root url="file://c:\git\flutter&#x2F;bin&#x2F;cache&#x2F;dart-sdk/lib/web_sql" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
