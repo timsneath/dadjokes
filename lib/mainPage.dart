@@ -1,4 +1,14 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+const dadJokeApi = "https://icanhazdadjoke.com/";
+const httpHeaders = const {
+  'User-Agent': 'DadJokes (https://github.com/timsneath/dadjokes)',
+  'Accept': 'application/json',
+};
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title}) : super(key: key);
@@ -10,11 +20,30 @@ class MainPage extends StatefulWidget {
 }
 
 class MainPageState extends State<MainPage> {
-  int _counter = 0;
+  String displayedDadJoke = '';
 
-  void _incrementCounter() {
+  @override
+  initState() {
+    super.initState();
+
+    displayedDadJoke = 'Here';
+  }
+
+  Future<String> getNewJoke() async {
+    final response = await http.read(dadJokeApi, headers: httpHeaders);
+    final decoded = JSON.decode(response);
+
+    if (decoded['status'] == 200) {
+      return decoded['joke'];
+    } else {
+      return 'Error: ${decoded['status']}';
+    }
+  }
+
+  newJoke() async {
+    String newJoke = await getNewJoke();
     setState(() {
-      _counter++;
+      displayedDadJoke = newJoke;
     });
   }
 
@@ -29,19 +58,20 @@ class MainPageState extends State<MainPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Text(
-              'You have pushed the button this many times:',
-            ),
-            new Text(
-              '$_counter',
+              '$displayedDadJoke',
               style: Theme.of(context).textTheme.display1,
+            ),
+            new RaisedButton(
+              onPressed: newJoke,
+              child: new Text('New Joke'),
             ),
           ],
         ),
       ),
       floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: new Icon(Icons.add),
+        onPressed: newJoke,
+        tooltip: 'Share',
+        child: new Icon(Icons.share),
       ),
     );
   }
