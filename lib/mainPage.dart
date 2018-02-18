@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 
 const dadJokeApi = "https://icanhazdadjoke.com/";
 const httpHeaders = const {
@@ -20,31 +19,18 @@ class MainPage extends StatefulWidget {
 }
 
 class MainPageState extends State<MainPage> {
-  // String displayedDadJoke = '';
+  Future<String> _response;
 
   @override
   initState() {
     super.initState();
-
-    // displayedDadJoke = 'Here';
+    _refresh();
   }
 
-  Future<String> getNewJoke() async {
-    final response = await http.read(dadJokeApi, headers: httpHeaders);
-    final decoded = JSON.decode(response);
-
-    if (decoded['status'] == 200) {
-      return decoded['joke'];
-    } else {
-      return 'Error: ${decoded['status']}';
-    }
-  }
-
-  newJoke() async {
-    String newJoke = await getNewJoke();
-    // setState(() {
-    // displayedDadJoke = newJoke;
-    // });
+  void _refresh() {
+    setState(() {
+      _response = http.read(dadJokeApi, headers: httpHeaders);
+    });
   }
 
   @override
@@ -58,7 +44,7 @@ class MainPageState extends State<MainPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new FutureBuilder<String>(
-                future: getNewJoke(),
+                future: _response,
                 builder:
                     (BuildContext context, AsyncSnapshot<String> snapshot) {
                   switch (snapshot.connectionState) {
@@ -67,19 +53,26 @@ class MainPageState extends State<MainPage> {
                     case ConnectionState.waiting:
                       return new Center(child: new CircularProgressIndicator());
                     default:
-                      return new Text(snapshot.data,
+                      final decoded = JSON.decode(snapshot.data);
+
+                      if (decoded['status'] == 200) {
+                        return new Text(decoded['joke'],
                           style: Theme.of(context).textTheme.display1);
+                      } else {
+                        return new Icon(Icons.error);
+
+                      }
                   }
                 }),
             new RaisedButton(
-              onPressed: () {},
+              onPressed: _refresh,
               child: new Text('New Joke'),
             ),
           ],
         ),
       ),
       floatingActionButton: new FloatingActionButton(
-        onPressed: newJoke,
+        onPressed: _refresh,
         tooltip: 'Share',
         child: new Icon(Icons.share),
       ),
