@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:share/share.dart';
 
 const dadJokeApi = "https://icanhazdadjoke.com/";
 const httpHeaders = const {
@@ -20,6 +21,7 @@ class MainPage extends StatefulWidget {
 
 class MainPageState extends State<MainPage> {
   Future<String> _response;
+  String _displayedJoke = '';
 
   @override
   initState() {
@@ -36,12 +38,15 @@ class MainPageState extends State<MainPage> {
   _about() {
     final aboutDialog = new AlertDialog(
       title: new Text('About Dad Jokes'),
-      content: new Text('This app is brought to you by Tim Sneath (@timsneath), proud parent of Naomi, Esther, and Silas. May your children groan like mine will.'),
+      content: new Text('Dad jokes is brought to you by Tim Sneath (@timsneath), proud parent of Naomi, Esther, and Silas. May your children groan like mine will.\n\nDad jokes come from https://icanhazdadjoke.com'),
     );
     showDialog(context: context, child: aboutDialog);
     }
 
   void _share() {
+    if (_displayedJoke != '') {
+      share(_displayedJoke);
+    }
   }
 
   @override
@@ -78,9 +83,10 @@ class MainPageState extends State<MainPage> {
                     final decoded = JSON.decode(snapshot.data);
 
                     if (decoded['status'] == 200) {
+                      _displayedJoke = decoded['joke'];
                       return new Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: new Text(decoded['joke'],
+                          child: new Text(_displayedJoke,
                               style: Theme.of(context).textTheme.display1));
                     } else {
                       return new Icon(Icons.error);
