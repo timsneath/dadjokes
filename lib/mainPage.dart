@@ -20,13 +20,13 @@ class MainPage extends StatefulWidget {
 }
 
 class MainPageState extends State<MainPage> {
-  String displayedDadJoke = '';
+  // String displayedDadJoke = '';
 
   @override
   initState() {
     super.initState();
 
-    displayedDadJoke = 'Here';
+    // displayedDadJoke = 'Here';
   }
 
   Future<String> getNewJoke() async {
@@ -42,9 +42,9 @@ class MainPageState extends State<MainPage> {
 
   newJoke() async {
     String newJoke = await getNewJoke();
-    setState(() {
-      displayedDadJoke = newJoke;
-    });
+    // setState(() {
+    // displayedDadJoke = newJoke;
+    // });
   }
 
   @override
@@ -57,12 +57,22 @@ class MainPageState extends State<MainPage> {
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
-              '$displayedDadJoke',
-              style: Theme.of(context).textTheme.display1,
-            ),
+            new FutureBuilder<String>(
+                future: getNewJoke(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                      return new Icon(Icons.sync_problem);
+                    case ConnectionState.waiting:
+                      return new Center(child: new CircularProgressIndicator());
+                    default:
+                      return new Text(snapshot.data,
+                          style: Theme.of(context).textTheme.display1);
+                  }
+                }),
             new RaisedButton(
-              onPressed: newJoke,
+              onPressed: () {},
               child: new Text('New Joke'),
             ),
           ],
