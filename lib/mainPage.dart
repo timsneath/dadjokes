@@ -43,9 +43,9 @@ class MainPageState extends State<MainPage> {
     showDialog(context: context, child: aboutDialog);
     }
 
-  void _share() {
+  _share() async {
     if (_displayedJoke != '') {
-      share(_displayedJoke);
+      await share(_displayedJoke);
     }
   }
 
