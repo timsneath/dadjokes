@@ -291,7 +291,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh",
-				"${PODS_ROOT}/../../../../flutter/bin/cache/artifacts/engine/ios/Flutter.framework",
+				"${PODS_ROOT}/../../../../flutter/bin/cache/artifacts/engine/ios-release/Flutter.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -459,6 +459,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.sneath.dadjokes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -482,6 +483,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.sneath.dadjokes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
