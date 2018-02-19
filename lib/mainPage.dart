@@ -94,9 +94,14 @@ class MainPageState extends State<MainPage> {
                     if (decoded['status'] == 200) {
                       _displayedJoke = decoded['joke'];
                       return new Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: new Text(_displayedJoke, style: jokeTextStyle),
-                      );
+                          padding: const EdgeInsets.all(16.0),
+                          child: new Dismissible(
+                            key: new Key("joke"),
+                            direction: DismissDirection.horizontal,
+                            onDismissed: (direction) { _refresh(); },
+                            child:
+                                new Text(_displayedJoke, style: jokeTextStyle),
+                          ));
                     } else {
                       return new Icon(Icons.error);
                     }
