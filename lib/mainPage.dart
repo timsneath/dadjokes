@@ -45,9 +45,9 @@ class MainPageState extends State<MainPage> {
     final aboutDialog = new AlertDialog(
       title: new Text('About Dad Jokes'),
       content: new Text(
-          'Dad jokes is brought to you by Tim Sneath (@timsneath), proud dad'
-          'of Naomi, Esther, and Silas. May your children groan like mine'
-          'will.\n\nDad jokes come from https://icanhazdadjoke.com with'
+          'Dad jokes is brought to you by Tim Sneath (@timsneath), proud dad '
+          'of Naomi, Esther, and Silas. May your children groan like mine '
+          'will.\n\nDad jokes come from https://icanhazdadjoke.com with '
           'thanks.'),
     );
     showDialog(context: context, child: aboutDialog);
