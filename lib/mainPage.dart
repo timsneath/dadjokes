@@ -11,12 +11,10 @@ const httpHeaders = const {
 };
 
 const jokeTextStyle = const TextStyle(
-  fontFamily: 'Patrick Hand',
-  fontSize: 34.0,
-  fontStyle: FontStyle.normal,
-  fontWeight: FontWeight.normal
-);
-
+    fontFamily: 'Patrick Hand',
+    fontSize: 34.0,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.normal);
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title}) : super(key: key);
@@ -46,10 +44,14 @@ class MainPageState extends State<MainPage> {
   _about() {
     final aboutDialog = new AlertDialog(
       title: new Text('About Dad Jokes'),
-      content: new Text('Dad jokes is brought to you by Tim Sneath (@timsneath), proud dad of Naomi, Esther, and Silas. May your children groan like mine will.\n\nDad jokes come from https://icanhazdadjoke.com with thanks.'),
+      content: new Text(
+          'Dad jokes is brought to you by Tim Sneath (@timsneath), proud dad'
+          'of Naomi, Esther, and Silas. May your children groan like mine'
+          'will.\n\nDad jokes come from https://icanhazdadjoke.com with'
+          'thanks.'),
     );
     showDialog(context: context, child: aboutDialog);
-    }
+  }
 
   _share() async {
     if (_displayedJoke != '') {
@@ -92,9 +94,9 @@ class MainPageState extends State<MainPage> {
                     if (decoded['status'] == 200) {
                       _displayedJoke = decoded['joke'];
                       return new Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: new Text(_displayedJoke,
-                              style: jokeTextStyle));
+                        padding: const EdgeInsets.all(10.0),
+                        child: new Text(_displayedJoke, style: jokeTextStyle),
+                      );
                     } else {
                       return new Icon(Icons.error);
                     }
