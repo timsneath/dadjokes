@@ -32,16 +32,16 @@ class MainPageState extends State<MainPage> {
   @override
   initState() {
     super.initState();
-    _refresh();
+    _refreshAction();
   }
 
-  void _refresh() {
+  _refreshAction() {
     setState(() {
       _response = http.read(dadJokeApi, headers: httpHeaders);
     });
   }
 
-  _about() {
+  _aboutAction() {
     final aboutDialog = new AlertDialog(
       title: new Text('About Dad Jokes'),
       content: new Text(
@@ -53,10 +53,60 @@ class MainPageState extends State<MainPage> {
     showDialog(context: context, child: aboutDialog);
   }
 
-  _share() async {
+  _shareAction() async {
     if (_displayedJoke != '') {
       await share(_displayedJoke);
     }
+  }
+
+  FutureBuilder<String> _jokeBody() {
+    return new FutureBuilder<String>(
+      future: _response,
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+            return new ListTile(
+              leading: const Icon(Icons.sync_problem),
+              title: const Text('No connection'),
+            );
+          case ConnectionState.waiting:
+            return new Center(child: new CircularProgressIndicator());
+          default:
+            if (snapshot.hasError) {
+              return new Center(
+                child: new ListTile(
+                  leading: const Icon(Icons.error),
+                  title: const Text('Network error'),
+                  subtitle: const Text(
+                      'Sorry - this isn\'t funny, we know, but something went '
+                      'wrong when connecting to the Internet. Check your '
+                      'network connection and try again.'),
+                ),
+              );
+            } else {
+              final decoded = JSON.decode(snapshot.data);
+              if (decoded['status'] == 200) {
+                _displayedJoke = decoded['joke'];
+                return new Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: new Dismissible(
+                      key: new Key("joke"),
+                      direction: DismissDirection.horizontal,
+                      onDismissed: (direction) {
+                        _refreshAction();
+                      },
+                      child: new Text(_displayedJoke, style: jokeTextStyle),
+                    ));
+              } else {
+                return new ListTile(
+                  leading: const Icon(Icons.sync_problem),
+                  title: const Text('Unexpected result'),
+                );
+              }
+            }
+        }
+      },
+    );
   }
 
   @override
@@ -68,51 +118,20 @@ class MainPageState extends State<MainPage> {
           new IconButton(
             icon: new Icon(Icons.info),
             tooltip: 'About Dad Jokes',
-            onPressed: _about,
+            onPressed: _aboutAction,
           ),
           new IconButton(
             icon: new Icon(Icons.share),
             tooltip: 'Share joke',
-            onPressed: _share,
+            onPressed: _shareAction,
           )
         ],
       ),
       body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new FutureBuilder<String>(
-              future: _response,
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                    return new Icon(Icons.sync_problem);
-                  case ConnectionState.waiting:
-                    return new Center(child: new CircularProgressIndicator());
-                  default:
-                    final decoded = JSON.decode(snapshot.data);
-                    if (decoded['status'] == 200) {
-                      _displayedJoke = decoded['joke'];
-                      return new Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: new Dismissible(
-                            key: new Key("joke"),
-                            direction: DismissDirection.horizontal,
-                            onDismissed: (direction) { _refresh(); },
-                            child:
-                                new Text(_displayedJoke, style: jokeTextStyle),
-                          ));
-                    } else {
-                      return new Icon(Icons.error);
-                    }
-                }
-              },
-            ),
-          ],
-        ),
+        child: _jokeBody(),
       ),
       floatingActionButton: new FloatingActionButton(
-        onPressed: _refresh,
+        onPressed: _refreshAction,
         tooltip: 'New joke',
         child: new Icon(Icons.refresh),
       ),
