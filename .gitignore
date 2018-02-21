@@ -16,8 +16,9 @@
 *.iws
 .idea/
 
-# Visual Studio Code related
+# Visual Studio related
 .vscode/
+.vs/
 
 # Flutter repo-specific
 /bin/cache/
