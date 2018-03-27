@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'mainPage.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Dad Jokes',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      home: new MainPage(title: 'Dad Jokes'),
+      home: MainPage(title: 'Dad Jokes'),
     );
   }
 }

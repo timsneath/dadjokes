@@ -5,12 +5,12 @@ import 'package:http/http.dart' as http;
 import 'package:share/share.dart';
 
 const dadJokeApi = "https://icanhazdadjoke.com/";
-const httpHeaders = const {
+const httpHeaders = {
   'User-Agent': 'DadJokes (https://github.com/timsneath/dadjokes)',
   'Accept': 'application/json',
 };
 
-const jokeTextStyle = const TextStyle(
+const jokeTextStyle = TextStyle(
     fontFamily: 'Patrick Hand',
     fontSize: 34.0,
     fontStyle: FontStyle.normal,
@@ -22,7 +22,7 @@ class MainPage extends StatefulWidget {
   final String title;
 
   @override
-  MainPageState createState() => new MainPageState();
+  MainPageState createState() => MainPageState();
 }
 
 class MainPageState extends State<MainPage> {
@@ -42,9 +42,9 @@ class MainPageState extends State<MainPage> {
   }
 
   _aboutAction() {
-    final aboutDialog = new AlertDialog(
-      title: new Text('About Dad Jokes'),
-      content: new Text(
+    final aboutDialog = AlertDialog(
+      title: Text('About Dad Jokes'),
+      content: Text(
           'Dad jokes is brought to you by Tim Sneath (@timsneath), proud dad '
           'of Naomi, Esther, and Silas. May your children groan like mine '
           'will.\n\nDad jokes come from https://icanhazdadjoke.com with '
@@ -60,47 +60,47 @@ class MainPageState extends State<MainPage> {
   }
 
   FutureBuilder<String> _jokeBody() {
-    return new FutureBuilder<String>(
+    return FutureBuilder<String>(
       future: _response,
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
-            return new ListTile(
-              leading: const Icon(Icons.sync_problem),
-              title: const Text('No connection'),
+            return ListTile(
+              leading: Icon(Icons.sync_problem),
+              title: Text('No connection'),
             );
           case ConnectionState.waiting:
-            return new Center(child: new CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator());
           default:
             if (snapshot.hasError) {
-              return new Center(
-                child: new ListTile(
-                  leading: const Icon(Icons.error),
-                  title: const Text('Network error'),
-                  subtitle: const Text(
+              return Center(
+                child: ListTile(
+                  leading: Icon(Icons.signal_wifi_off),
+                  title: Text('Network error'),
+                  subtitle: Text(
                       'Sorry - this isn\'t funny, we know, but something went '
                       'wrong when connecting to the Internet. Check your '
                       'network connection and try again.'),
                 ),
               );
             } else {
-              final decoded = JSON.decode(snapshot.data);
+              final decoded = json.decode(snapshot.data);
               if (decoded['status'] == 200) {
                 _displayedJoke = decoded['joke'];
-                return new Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: new Dismissible(
-                      key: new Key("joke"),
+                return Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Dismissible(
+                      key: Key("joke"),
                       direction: DismissDirection.horizontal,
                       onDismissed: (direction) {
                         _refreshAction();
                       },
-                      child: new Text(_displayedJoke, style: jokeTextStyle),
+                      child: Text(_displayedJoke, style: jokeTextStyle),
                     ));
               } else {
-                return new ListTile(
-                  leading: const Icon(Icons.sync_problem),
-                  title: const Text('Unexpected result'),
+                return ListTile(
+                  leading: Icon(Icons.sync_problem),
+                  title: Text('Unexpected result'),
                 );
               }
             }
@@ -111,29 +111,29 @@ class MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.title),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
         actions: <Widget>[
-          new IconButton(
-            icon: new Icon(Icons.info),
+          IconButton(
+            icon: Icon(Icons.info),
             tooltip: 'About Dad Jokes',
             onPressed: _aboutAction,
           ),
-          new IconButton(
-            icon: new Icon(Icons.share),
+          IconButton(
+            icon: Icon(Icons.share),
             tooltip: 'Share joke',
             onPressed: _shareAction,
           )
         ],
       ),
-      body: new Center(
+      body: Center(
         child: _jokeBody(),
       ),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: _refreshAction,
         tooltip: 'New joke',
-        child: new Icon(Icons.refresh),
+        child: Icon(Icons.refresh),
       ),
     );
   }
