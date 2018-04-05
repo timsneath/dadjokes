@@ -5,12 +5,12 @@ import 'package:http/http.dart' as http;
 import 'package:share/share.dart';
 
 const dadJokeApi = "https://icanhazdadjoke.com/";
-const httpHeaders = const {
+const httpHeaders = {
   'User-Agent': 'DadJokes (https://github.com/timsneath/dadjokes)',
   'Accept': 'application/json',
 };
 
-const jokeTextStyle = const TextStyle(
+const jokeTextStyle = TextStyle(
     fontFamily: 'Patrick Hand',
     fontSize: 34.0,
     fontStyle: FontStyle.normal,
@@ -22,7 +22,7 @@ class MainPage extends StatefulWidget {
   final String title;
 
   @override
-  MainPageState createState() => new MainPageState();
+  MainPageState createState() => MainPageState();
 }
 
 class MainPageState extends State<MainPage> {
@@ -62,16 +62,17 @@ class MainPageState extends State<MainPage> {
   }
 
   FutureBuilder<String> _jokeBody() {
-    return new FutureBuilder<String>(
+    return FutureBuilder<String>(
       future: _response,
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
-            return new ListTile(
-              leading: const Icon(Icons.sync_problem),
-              title: const Text('No connection'),
+            return ListTile(
+              leading: Icon(Icons.sync_problem),
+              title: Text('No connection'),
             );
           case ConnectionState.waiting:
+
             return const Center(child: const CircularProgressIndicator());
           default:
             if (snapshot.hasError) {
@@ -97,7 +98,7 @@ class MainPageState extends State<MainPage> {
                       onDismissed: (direction) {
                         _refreshAction();
                       },
-                      child: new Text(_displayedJoke, style: jokeTextStyle),
+                      child: Text(_displayedJoke, style: jokeTextStyle),
                     ));
               } else {
                 return new ListTile(
@@ -113,29 +114,29 @@ class MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.title),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
         actions: <Widget>[
-          new IconButton(
-            icon: new Icon(Icons.info),
+          IconButton(
+            icon: Icon(Icons.info),
             tooltip: 'About Dad Jokes',
             onPressed: _aboutAction,
           ),
-          new IconButton(
-            icon: new Icon(Icons.share),
+          IconButton(
+            icon: Icon(Icons.share),
             tooltip: 'Share joke',
             onPressed: _shareAction,
           )
         ],
       ),
-      body: new Center(
+      body: Center(
         child: _jokeBody(),
       ),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: _refreshAction,
         tooltip: 'New joke',
-        child: new Icon(Icons.refresh),
+        child: Icon(Icons.refresh),
       ),
     );
   }

@@ -16,8 +16,9 @@
 *.iws
 .idea/
 
-# Visual Studio Code related
+# Visual Studio related
 .vscode/
+.vs/
 
 # Flutter repo-specific
 /bin/cache/
@@ -50,6 +51,7 @@ unlinked_spec.ds
 **/android/gradlew
 **/android/gradlew.bat
 **/android/local.properties
+**/android/key.jks
 **/android/key.properties
 **/android/**/GeneratedPluginRegistrant.java
 
