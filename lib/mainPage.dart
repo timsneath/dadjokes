@@ -42,20 +42,22 @@ class MainPageState extends State<MainPage> {
   }
 
   _aboutAction() {
-    final aboutDialog = new AlertDialog(
-      title: new Text('About Dad Jokes'),
-      content: new Text(
-          'Dad jokes is brought to you by Tim Sneath (@timsneath), proud dad '
-          'of Naomi, Esther, and Silas. May your children groan like mine '
-          'will.\n\nDad jokes come from https://icanhazdadjoke.com with '
-          'thanks.'),
-    );
-    showDialog(context: context, child: aboutDialog);
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return new AlertDialog(
+              title: new Text('About Dad Jokes'),
+              content: new Text(
+                  'Dad jokes is brought to you by Tim Sneath (@timsneath), '
+                  'proud dad of Naomi, Esther, and Silas. May your children '
+                  'groan like mine will.\n\nDad jokes come from '
+                  'https://icanhazdadjoke.com with thanks.'));
+        });
   }
 
-  _shareAction() async {
-    if (_displayedJoke != '') {
-      await share(_displayedJoke);
+  _shareAction() {
+    if (_displayedJoke.isNotEmpty) {
+      share(_displayedJoke);
     }
   }
 
@@ -70,11 +72,11 @@ class MainPageState extends State<MainPage> {
               title: const Text('No connection'),
             );
           case ConnectionState.waiting:
-            return new Center(child: new CircularProgressIndicator());
+            return const Center(child: const CircularProgressIndicator());
           default:
             if (snapshot.hasError) {
-              return new Center(
-                child: new ListTile(
+              return const Center(
+                child: const ListTile(
                   leading: const Icon(Icons.error),
                   title: const Text('Network error'),
                   subtitle: const Text(
@@ -84,13 +86,13 @@ class MainPageState extends State<MainPage> {
                 ),
               );
             } else {
-              final decoded = JSON.decode(snapshot.data);
+              final decoded = json.decode(snapshot.data);
               if (decoded['status'] == 200) {
                 _displayedJoke = decoded['joke'];
                 return new Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: new Dismissible(
-                      key: new Key("joke"),
+                      key: const Key("joke"),
                       direction: DismissDirection.horizontal,
                       onDismissed: (direction) {
                         _refreshAction();
@@ -100,7 +102,7 @@ class MainPageState extends State<MainPage> {
               } else {
                 return new ListTile(
                   leading: const Icon(Icons.sync_problem),
-                  title: const Text('Unexpected result'),
+                  title: new Text('Unexpected error: ${snapshot.data}'),
                 );
               }
             }
