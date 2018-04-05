@@ -42,20 +42,22 @@ class MainPageState extends State<MainPage> {
   }
 
   _aboutAction() {
-    final aboutDialog = AlertDialog(
-      title: Text('About Dad Jokes'),
-      content: Text(
-          'Dad jokes is brought to you by Tim Sneath (@timsneath), proud dad '
-          'of Naomi, Esther, and Silas. May your children groan like mine '
-          'will.\n\nDad jokes come from https://icanhazdadjoke.com with '
-          'thanks.'),
-    );
-    showDialog(context: context, child: aboutDialog);
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return new AlertDialog(
+              title: new Text('About Dad Jokes'),
+              content: new Text(
+                  'Dad jokes is brought to you by Tim Sneath (@timsneath), '
+                  'proud dad of Naomi, Esther, and Silas. May your children '
+                  'groan like mine will.\n\nDad jokes come from '
+                  'https://icanhazdadjoke.com with thanks.'));
+        });
   }
 
-  _shareAction() async {
-    if (_displayedJoke != '') {
-      await share(_displayedJoke);
+  _shareAction() {
+    if (_displayedJoke.isNotEmpty) {
+      share(_displayedJoke);
     }
   }
 
@@ -70,14 +72,15 @@ class MainPageState extends State<MainPage> {
               title: Text('No connection'),
             );
           case ConnectionState.waiting:
-            return Center(child: CircularProgressIndicator());
+
+            return const Center(child: const CircularProgressIndicator());
           default:
             if (snapshot.hasError) {
-              return Center(
-                child: ListTile(
-                  leading: Icon(Icons.signal_wifi_off),
-                  title: Text('Network error'),
-                  subtitle: Text(
+              return const Center(
+                child: const ListTile(
+                  leading: const Icon(Icons.error),
+                  title: const Text('Network error'),
+                  subtitle: const Text(
                       'Sorry - this isn\'t funny, we know, but something went '
                       'wrong when connecting to the Internet. Check your '
                       'network connection and try again.'),
@@ -87,10 +90,10 @@ class MainPageState extends State<MainPage> {
               final decoded = json.decode(snapshot.data);
               if (decoded['status'] == 200) {
                 _displayedJoke = decoded['joke'];
-                return Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Dismissible(
-                      key: Key("joke"),
+                return new Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: new Dismissible(
+                      key: const Key("joke"),
                       direction: DismissDirection.horizontal,
                       onDismissed: (direction) {
                         _refreshAction();
@@ -98,9 +101,9 @@ class MainPageState extends State<MainPage> {
                       child: Text(_displayedJoke, style: jokeTextStyle),
                     ));
               } else {
-                return ListTile(
-                  leading: Icon(Icons.sync_problem),
-                  title: Text('Unexpected result'),
+                return new ListTile(
+                  leading: const Icon(Icons.sync_problem),
+                  title: new Text('Unexpected error: ${snapshot.data}'),
                 );
               }
             }
