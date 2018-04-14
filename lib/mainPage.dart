@@ -22,7 +22,7 @@ class MainPage extends StatefulWidget {
   final String title;
 
   @override
-  MainPageState createState() => new MainPageState();
+  MainPageState createState() => MainPageState();
 }
 
 class MainPageState extends State<MainPage> {
@@ -45,9 +45,9 @@ class MainPageState extends State<MainPage> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return new AlertDialog(
-              title: new Text('About Dad Jokes'),
-              content: new Text(
+          return const AlertDialog(
+              title: Text('About Dad Jokes'),
+              content: Text(
                   'Dad jokes is brought to you by Tim Sneath (@timsneath), '
                   'proud dad of Naomi, Esther, and Silas. May your children '
                   'groan like mine will.\n\nDad jokes come from '
@@ -62,24 +62,24 @@ class MainPageState extends State<MainPage> {
   }
 
   FutureBuilder<String> _jokeBody() {
-    return new FutureBuilder<String>(
+    return FutureBuilder<String>(
       future: _response,
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
-            return new ListTile(
-              leading: const Icon(Icons.sync_problem),
-              title: const Text('No connection'),
+            return const ListTile(
+              leading: Icon(Icons.sync_problem),
+              title: Text('No connection'),
             );
           case ConnectionState.waiting:
-            return const Center(child: const CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           default:
             if (snapshot.hasError) {
               return const Center(
-                child: const ListTile(
-                  leading: const Icon(Icons.error),
-                  title: const Text('Network error'),
-                  subtitle: const Text(
+                child: ListTile(
+                  leading: Icon(Icons.error),
+                  title: Text('Network error'),
+                  subtitle: Text(
                       'Sorry - this isn\'t funny, we know, but something went '
                       'wrong when connecting to the Internet. Check your '
                       'network connection and try again.'),
@@ -89,20 +89,20 @@ class MainPageState extends State<MainPage> {
               final decoded = json.decode(snapshot.data);
               if (decoded['status'] == 200) {
                 _displayedJoke = decoded['joke'];
-                return new Padding(
+                return Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: new Dismissible(
+                    child: Dismissible(
                       key: const Key("joke"),
                       direction: DismissDirection.horizontal,
                       onDismissed: (direction) {
                         _refreshAction();
                       },
-                      child: new Text(_displayedJoke, style: jokeTextStyle),
+                      child: Text(_displayedJoke, style: jokeTextStyle),
                     ));
               } else {
-                return new ListTile(
+                return ListTile(
                   leading: const Icon(Icons.sync_problem),
-                  title: new Text('Unexpected error: ${snapshot.data}'),
+                  title: Text('Unexpected error: ${snapshot.data}'),
                 );
               }
             }
@@ -113,29 +113,29 @@ class MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.title),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
         actions: <Widget>[
-          new IconButton(
-            icon: new Icon(Icons.info),
+          IconButton(
+            icon: Icon(Icons.info),
             tooltip: 'About Dad Jokes',
             onPressed: _aboutAction,
           ),
-          new IconButton(
-            icon: new Icon(Icons.share),
+          IconButton(
+            icon: Icon(Icons.share),
             tooltip: 'Share joke',
             onPressed: _shareAction,
           )
         ],
       ),
-      body: new Center(
+      body: Center(
         child: _jokeBody(),
       ),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: _refreshAction,
         tooltip: 'New joke',
-        child: new Icon(Icons.refresh),
+        child: Icon(Icons.refresh),
       ),
     );
   }
