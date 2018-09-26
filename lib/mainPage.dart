@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:share/share.dart';
 
 const dadJokeApi = "https://icanhazdadjoke.com/";
@@ -97,7 +98,7 @@ class MainPageState extends State<MainPage> {
                       onDismissed: (direction) {
                         _refreshAction();
                       },
-                      child: Text(_displayedJoke, style: jokeTextStyle),
+                      child: AutoSizeText(_displayedJoke, style: jokeTextStyle),
                     ));
               } else {
                 return ListTile(
