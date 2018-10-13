@@ -13,7 +13,7 @@ const httpHeaders = const {
 
 const jokeTextStyle = const TextStyle(
     fontFamily: 'Patrick Hand',
-    fontSize: 34.0,
+    fontSize: 60,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal);
 
@@ -91,7 +91,7 @@ class MainPageState extends State<MainPage> {
               if (decoded['status'] == 200) {
                 _displayedJoke = decoded['joke'];
                 return Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16),
                     child: Dismissible(
                       key: const Key("joke"),
                       direction: DismissDirection.horizontal,
