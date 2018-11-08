@@ -13,7 +13,7 @@ const httpHeaders = const {
 
 const jokeTextStyle = const TextStyle(
     fontFamily: 'Patrick Hand',
-    fontSize: 60,
+    fontSize: 36,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal);
 
@@ -116,6 +116,10 @@ class MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Image.asset(
+          'assets/icon.png',
+          fit: BoxFit.scaleDown,
+        ),
         title: Text(widget.title),
         actions: <Widget>[
           IconButton(
@@ -131,12 +135,12 @@ class MainPageState extends State<MainPage> {
         ],
       ),
       body: Center(
-        child: _jokeBody(),
+        child: SafeArea(child: _jokeBody()),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: _refreshAction,
-        tooltip: 'New joke',
-        child: Icon(Icons.refresh),
+        icon: Icon(Icons.mood),
+        label: Text('NEW JOKE'),
       ),
     );
   }

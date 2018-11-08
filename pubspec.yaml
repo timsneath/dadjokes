@@ -10,6 +10,8 @@ dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+   - assets/icon.png
   fonts:
     - family: Patrick Hand
       fonts:
