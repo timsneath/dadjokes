@@ -58,7 +58,7 @@ class MainPageState extends State<MainPage> {
 
   _shareAction() {
     if (_displayedJoke.isNotEmpty) {
-      share(_displayedJoke);
+      Share.share(_displayedJoke);
     }
   }
 
