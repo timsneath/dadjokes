@@ -9,7 +9,7 @@ high-quality apps for iOS and Android from a single codebase.
 
 This is a small project to demonstrate a few useful Flutter features.
 
-Requires Flutter v0.10.2 or later.
+Requires Flutter v1.0 or later.
 
 ## Support
 
