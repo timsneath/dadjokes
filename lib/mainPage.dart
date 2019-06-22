@@ -51,7 +51,7 @@ class MainPageState extends State<MainPage> {
               content: Text(
                   'Dad jokes is brought to you by Tim Sneath (@timsneath), '
                   'proud dad of Naomi, Esther, and Silas. May your children '
-                  'groan like mine will.\n\nDad jokes come from '
+                  'groan like mine do.\n\nDad jokes come from '
                   'https://icanhazdadjoke.com with thanks.'));
         });
   }
