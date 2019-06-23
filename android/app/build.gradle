@@ -54,10 +54,10 @@ android {
                 keyAlias System.getenv()["FCI_KEY_ALIAS"]
                 keyPassword System.getenv()["FCI_KEY_PASSWORD"]
             } else {
-                storeFile file(keystoreProperties['storeFile'])
-                storePassword keystoreProperties['storePassword']
-                keyAlias keystoreProperties['keyAlias']
-                keyPassword keystoreProperties['keyPassword']
+                // storeFile file(keystoreProperties['storeFile'])
+                // storePassword keystoreProperties['storePassword']
+                // keyAlias keystoreProperties['keyAlias']
+                // keyPassword keystoreProperties['keyPassword']
             }
         }
     }
