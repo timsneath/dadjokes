@@ -1,21 +1,17 @@
-import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:share/share.dart';
 
-const dadJokeApi = "https://icanhazdadjoke.com/";
-const httpHeaders = const {
-  'User-Agent': 'DadJokes (https://github.com/timsneath/dadjokes)',
-  'Accept': 'application/json',
-};
+import 'package:dadjokes/jokeserver.dart';
+import 'package:dadjokes/joke.dart';
 
 const jokeTextStyle = const TextStyle(
     fontFamily: 'Patrick Hand',
     fontSize: 36,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal);
+
+String theJoke = '';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title}) : super(key: key);
@@ -27,18 +23,17 @@ class MainPage extends StatefulWidget {
 }
 
 class MainPageState extends State<MainPage> {
-  Future<String> _response;
-  String _displayedJoke = '';
+  Future<Joke> joke;
 
   @override
   initState() {
     super.initState();
-    _refreshAction();
+    joke = JokeServer().fetchJoke();
   }
 
   _refreshAction() {
     setState(() {
-      _response = http.read(dadJokeApi, headers: httpHeaders);
+      joke = JokeServer().fetchJoke();
     });
   }
 
@@ -47,69 +42,18 @@ class MainPageState extends State<MainPage> {
         context: context,
         builder: (BuildContext context) {
           return const AlertDialog(
-              title: Text('About Dad Jokes'),
-              content: Text(
-                  'Dad jokes is brought to you by Tim Sneath (@timsneath), '
-                  'proud dad of Naomi, Esther, and Silas. May your children '
-                  'groan like mine do.\n\nDad jokes come from '
-                  'https://icanhazdadjoke.com with thanks.'));
+            title: Text('About Dad Jokes'),
+            content:
+                Text('Dad jokes is brought to you by Tim Sneath (@timsneath), '
+                    'proud dad of Naomi, Esther, and Silas. May your children '
+                    'groan like mine do.\n\nDad jokes come from '
+                    'https://icanhazdadjoke.com with thanks.'),
+          );
         });
   }
 
   _shareAction() {
-    if (_displayedJoke.isNotEmpty) {
-      Share.share(_displayedJoke);
-    }
-  }
-
-  FutureBuilder<String> _jokeBody() {
-    return FutureBuilder<String>(
-      future: _response,
-      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.none:
-            return const ListTile(
-              leading: Icon(Icons.sync_problem),
-              title: Text('No connection'),
-            );
-          case ConnectionState.waiting:
-            return const Center(child: CircularProgressIndicator());
-          default:
-            if (snapshot.hasError) {
-              return const Center(
-                child: ListTile(
-                  leading: Icon(Icons.error),
-                  title: Text('Network error'),
-                  subtitle: Text(
-                      'Sorry - this isn\'t funny, we know, but something went '
-                      'wrong when connecting to the Internet. Check your '
-                      'network connection and try again.'),
-                ),
-              );
-            } else {
-              final decoded = json.decode(snapshot.data);
-              if (decoded['status'] == 200) {
-                _displayedJoke = decoded['joke'];
-                return Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Dismissible(
-                      key: const Key("joke"),
-                      direction: DismissDirection.horizontal,
-                      onDismissed: (direction) {
-                        _refreshAction();
-                      },
-                      child: AutoSizeText(_displayedJoke, style: jokeTextStyle),
-                    ));
-              } else {
-                return ListTile(
-                  leading: const Icon(Icons.sync_problem),
-                  title: Text('Unexpected error: ${snapshot.data}'),
-                );
-              }
-            }
-        }
-      },
-    );
+    Share.share(theJoke);
   }
 
   @override
@@ -135,13 +79,68 @@ class MainPageState extends State<MainPage> {
         ],
       ),
       body: Center(
-        child: SafeArea(child: _jokeBody()),
+        child: SafeArea(
+          child: JokeWidget(
+            joke: joke,
+            refreshCallback: _refreshAction,
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _refreshAction,
         icon: Icon(Icons.mood),
         label: Text('NEW JOKE'),
       ),
+    );
+  }
+}
+
+class JokeWidget extends StatelessWidget {
+  final Future<Joke> joke;
+  final refreshCallback;
+
+  JokeWidget({Key key, this.joke, this.refreshCallback}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Joke>(
+      future: JokeServer().fetchJoke(),
+      builder: (BuildContext context, AsyncSnapshot<Joke> snapshot) {
+        // We have a joke
+        if (snapshot.hasData) {
+          theJoke = snapshot.data.body;
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: Dismissible(
+              key: const Key("joke"),
+              direction: DismissDirection.horizontal,
+              onDismissed: (direction) {
+                refreshCallback();
+              },
+              child: AutoSizeText(
+                snapshot.data.body,
+                style: jokeTextStyle,
+              ),
+            ),
+          );
+        }
+
+        // Something went wrong
+        else if (snapshot.hasError) {
+          return const Center(
+            child: ListTile(
+              leading: Icon(Icons.error),
+              title: Text('Network error'),
+              subtitle:
+                  Text('Sorry - this isn\'t funny, we know, but our jokes '
+                      'come directly from the Internet for maximum freshness. '
+                      'We can\'t reach the server: network issues, perhaps?'),
+            ),
+          );
+        }
+
+        return CircularProgressIndicator();
+      },
     );
   }
 }
