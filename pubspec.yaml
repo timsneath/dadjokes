@@ -11,7 +11,8 @@ dependencies:
 
 dev_dependencies:
   pedantic: '1.7.0'
-  
+  flutter_launcher_icons: "^0.7.2"
+
 flutter:
   uses-material-design: true
   assets:
@@ -20,3 +21,8 @@ flutter:
     - family: Patrick Hand
       fonts:
        - asset: assets/fonts/PatrickHand-Regular.ttf
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/source-icon.png"
