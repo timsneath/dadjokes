@@ -23,9 +23,7 @@ def keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
-else {
-    throw new GradleException("key.properties could not be found in the rootProject")
-}
+
 
 android {
     compileSdkVersion 28
