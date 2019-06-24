@@ -10,7 +10,7 @@ dependencies:
   auto_size_text: ^2.0.1
 
 dev_dependencies:
-  pedantic: 1.7.0
+  pedantic: ^1.7.0
   flutter_launcher_icons: ^0.7.2
 
 flutter:
