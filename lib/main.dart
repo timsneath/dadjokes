@@ -102,8 +102,8 @@ class MainPageState extends State<MainPage> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(50, 10, 50, 0),
+            Align(
+              alignment: Alignment.centerLeft,
               child: Image.asset(
                 "assets/title-image.png",
                 fit: BoxFit.fitWidth,
