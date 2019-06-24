@@ -64,13 +64,27 @@ class MainPageState extends State<MainPage> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return const AlertDialog(
+          return AlertDialog(
             title: Text('About Dad Jokes'),
+            titleTextStyle: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 20,
+            ),
             content:
                 Text('Dad jokes is brought to you by Tim Sneath (@timsneath), '
                     'proud dad of Naomi, Esther, and Silas. May your children '
                     'groan like mine do.\n\nDad jokes come from '
-                    'https://icanhazdadjoke.com with thanks.'),
+                    'https://icanhazdadjoke.com, with thanks.'),
+            contentTextStyle: TextStyle(fontFamily: 'Poppins'),
+            actions: <Widget>[
+              FlatButton.icon(
+                icon: Icon(Icons.done),
+                label: Text('Done'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
           );
         });
   }
@@ -167,7 +181,7 @@ class JokeWidget extends StatelessWidget {
         if (snapshot.hasData) {
           theJoke = snapshot.data;
           return Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(8),
             child: AutoSizeText(
               snapshot.data.body,
               style: jokeTextStyle,
