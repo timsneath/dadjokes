@@ -12,7 +12,8 @@ const jokeTextStyle = TextStyle(
     fontFamily: 'Patrick Hand',
     fontSize: 36,
     fontStyle: FontStyle.normal,
-    fontWeight: FontWeight.normal);
+    fontWeight: FontWeight.normal,
+    color: Color(0xFF222222));
 
 const dadJokesBlue = Color(0xFF5DBAF4);
 
@@ -27,8 +28,10 @@ class DadJokesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: appName,
-        theme:
-            ThemeData(primaryColor: dadJokesBlue, brightness: Brightness.light),
+        theme: ThemeData(
+          primaryColor: dadJokesBlue,
+          brightness: Brightness.dark,
+        ),
         home: MainPage(title: appName),
       );
 }
@@ -79,37 +82,60 @@ class MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Image.asset(
-          'assets/icon.png',
-          fit: BoxFit.scaleDown,
-        ),
-        title: Text(widget.title),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.info),
-            tooltip: 'About Dad Jokes',
-            onPressed: _aboutAction,
-          ),
-          IconButton(
-            icon: Icon(Icons.share),
-            tooltip: 'Share joke',
-            onPressed: _shareAction,
-          )
-        ],
-      ),
-      body: Center(
-        child: SafeArea(
-          child: JokeWidget(
-            joke: joke,
-            refreshCallback: _refreshAction,
-          ),
+      backgroundColor: dadJokesBlue,
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: Image.asset(
+                "assets/title-image.png",
+                fit: BoxFit.fitWidth,
+                filterQuality: FilterQuality.high,
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: JokeWidget(
+                  joke: joke,
+                  refreshCallback: _refreshAction,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Color(0xFFBAE2FC),
         onPressed: _refreshAction,
+        label: Text(
+          'New Joke',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 20,
+          ),
+        ),
         icon: Icon(Icons.mood),
-        label: Text('NEW JOKE'),
+        elevation: 2.0,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(
+                icon: Icon(Icons.info),
+                onPressed: _aboutAction,
+                tooltip: 'About $appName'),
+            IconButton(
+                icon: Icon(Icons.share),
+                onPressed: _shareAction,
+                tooltip: 'Share joke'),
+          ],
+        ),
+        // shape: CircularNotchedRectangle(),
+        color: Color(0xFF118DDE),
       ),
     );
   }
