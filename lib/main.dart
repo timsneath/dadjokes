@@ -95,10 +95,21 @@ class MainPageState extends State<MainPage> {
               ),
             ),
             Expanded(
-              child: Center(
-                child: JokeWidget(
-                  joke: joke,
-                  refreshCallback: _refreshAction,
+              child: Container(
+                padding: EdgeInsets.all(5),
+                child: DecoratedBox(
+                  decoration: ShapeDecoration(
+                    color: Color(0x55FFFFFF),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                  ),
+                  child: Center(
+                    child: JokeWidget(
+                      joke: joke,
+                      refreshCallback: _refreshAction,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -150,23 +161,16 @@ class JokeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Joke>(
-      future: JokeServer().fetchJoke(),
+      future: joke,
       builder: (BuildContext context, AsyncSnapshot<Joke> snapshot) {
         // We have a joke
         if (snapshot.hasData) {
           theJoke = snapshot.data;
           return Padding(
             padding: const EdgeInsets.all(16),
-            child: Dismissible(
-              key: const Key("joke"),
-              direction: DismissDirection.horizontal,
-              onDismissed: (direction) {
-                refreshCallback();
-              },
-              child: AutoSizeText(
-                snapshot.data.body,
-                style: jokeTextStyle,
-              ),
+            child: AutoSizeText(
+              snapshot.data.body,
+              style: jokeTextStyle,
             ),
           );
         }
@@ -185,7 +189,10 @@ class JokeWidget extends StatelessWidget {
           );
         }
 
-        return CircularProgressIndicator();
+        // We're still just loading
+        else {
+          return CircularProgressIndicator();
+        }
       },
     );
   }
