@@ -54,6 +54,9 @@ android {
                 keyAlias System.getenv()["FCI_KEY_ALIAS"]
                 keyPassword System.getenv()["FCI_KEY_PASSWORD"]
             } else {
+                // enable for building locally: requires key.jks which is
+                // not included in the Github repo
+                
                 // storeFile file(keystoreProperties['storeFile'])
                 // storePassword keystoreProperties['storePassword']
                 // keyAlias keystoreProperties['keyAlias']
