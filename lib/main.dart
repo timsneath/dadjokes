@@ -33,6 +33,7 @@ class DadJokesApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: dadJokesBlue,
           brightness: Brightness.dark,
+          accentColor: Color(0xD7A51E),
         ),
         home: MainPage(title: appName),
       );
@@ -188,7 +189,7 @@ class JokeWidget extends StatelessWidget {
       future: joke,
       builder: (BuildContext context, AsyncSnapshot<Joke> snapshot) {
         // We have a joke
-        if (snapshot.hasData) {
+        if (snapshot.hasData && snapshot.data?.status == 200) {
           theJoke = snapshot.data;
           return Padding(
             padding: const EdgeInsets.all(8),
@@ -200,15 +201,29 @@ class JokeWidget extends StatelessWidget {
         }
 
         // Something went wrong
-        else if (snapshot.hasError) {
-          return const Center(
+        else if (snapshot.hasError || snapshot.data?.status == 500) {
+          return Center(
             child: ListTile(
-              leading: Icon(Icons.error),
-              title: Text('Network error'),
-              subtitle:
-                  Text('Sorry - this isn\'t funny, we know, but our jokes '
-                      'come directly from the Internet for maximum freshness. '
-                      'We can\'t reach the server: network issues, perhaps?'),
+              leading: Icon(
+                Icons.block,
+                color: Color(0xFF333333),
+              ),
+              title: Text(
+                'Network error',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  color: Color(0xFF333333),
+                ),
+              ),
+              subtitle: Text(
+                'Sorry - this isn\'t funny, we know, but our jokes '
+                'come directly from the Internet for maximum freshness. '
+                'We can\'t reach the server: network issues, perhaps?',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  color: Color(0xFF333333),
+                ),
+              ),
             ),
           );
         }

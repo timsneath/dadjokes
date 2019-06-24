@@ -11,12 +11,15 @@ class JokeServer {
   };
 
   Future<Joke> fetchJoke() async {
-    final response = await http.get(dadJokeApi, headers: httpHeaders);
-
-    if (response.statusCode == 200) {
-      return Joke.fromJson(json.decode(response.body));
-    } else {
-      throw Exception("Failed to load joke");
+    try {
+      final response = await http.get(dadJokeApi, headers: httpHeaders);
+      if (response.statusCode == 200) {
+        return Joke.fromJson(json.decode(response.body));
+      } else {
+        return Joke(body: 'Failed to load joke.', id: '', status: 500);
+      }
+    } catch (exception) {
+      return Joke(body: 'Network error occurred.', id: '', status: 500);
     }
   }
 }
