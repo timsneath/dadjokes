@@ -15,6 +15,8 @@ const jokeTextStyle = TextStyle(
     fontWeight: FontWeight.normal,
     color: Color(0xFF222222));
 
+const uiTextStyle = TextStyle(fontFamily: 'Poppins');
+
 const dadJokesBlue = Color(0xFF5DBAF4);
 
 // We store the joke as global state so it can be used in other places. We
@@ -75,7 +77,7 @@ class MainPageState extends State<MainPage> {
                     'proud dad of Naomi, Esther, and Silas. May your children '
                     'groan like mine do.\n\nDad jokes come from '
                     'https://icanhazdadjoke.com, with thanks.'),
-            contentTextStyle: TextStyle(fontFamily: 'Poppins'),
+            contentTextStyle: uiTextStyle,
             actions: <Widget>[
               FlatButton.icon(
                 icon: Icon(Icons.done),
@@ -101,13 +103,15 @@ class MainPageState extends State<MainPage> {
         child: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+              padding: EdgeInsets.fromLTRB(50, 10, 50, 0),
               child: Image.asset(
                 "assets/title-image.png",
                 fit: BoxFit.fitWidth,
                 filterQuality: FilterQuality.high,
               ),
             ),
+
+            // JOKE
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(5),
@@ -130,6 +134,8 @@ class MainPageState extends State<MainPage> {
           ],
         ),
       ),
+
+      // NEW JOKE BUTTON
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Color(0xFFBAE2FC),
         onPressed: _refreshAction,
@@ -144,19 +150,23 @@ class MainPageState extends State<MainPage> {
         elevation: 2.0,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+      // APP BAR
       bottomNavigationBar: BottomAppBar(
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            IconButton(
-                icon: Icon(Icons.info),
-                onPressed: _aboutAction,
-                tooltip: 'About $appName'),
-            IconButton(
-                icon: Icon(Icons.share),
-                onPressed: _shareAction,
-                tooltip: 'Share joke'),
+            FlatButton.icon(
+              icon: Icon(Icons.info),
+              label: Text('About', style: uiTextStyle),
+              onPressed: _aboutAction,
+            ),
+            FlatButton.icon(
+              icon: Icon(Icons.share),
+              label: Text('Share', style: uiTextStyle),
+              onPressed: _shareAction,
+            ),
           ],
         ),
         // shape: CircularNotchedRectangle(),
