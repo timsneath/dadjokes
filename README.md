@@ -5,12 +5,12 @@ A fun little app for groan-worthy dad jokes.
 
 ## For Developers
 
-Built with [Flutter]((http://flutter.io/)), a framework for building
+Built with [Flutter]((http://flutter.dev/)), a framework for building
 high-quality apps for iOS and Android from a single codebase.
 
 This is a small project to demonstrate a few useful Flutter features.
 
-Requires Flutter v1.0 or later.
+Requires Flutter v1.12 or later.
 
 ## Support
 

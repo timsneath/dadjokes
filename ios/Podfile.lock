@@ -4,19 +4,19 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - Flutter (from `/Users/timsneath/flutter/bin/cache/artifacts/engine/ios`)
-  - "share (from `/Users/timsneath/flutter/.pub-cache/hosted/pub.dartlang.org/share-0.6.3+3/ios`)"
+  - Flutter (from `Flutter`)
+  - share (from `.symlinks/plugins/share/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
-    :path: "/Users/timsneath/flutter/bin/cache/artifacts/engine/ios"
+    :path: Flutter
   share:
-    :path: "/Users/timsneath/flutter/.pub-cache/hosted/pub.dartlang.org/share-0.6.3+3/ios"
+    :path: ".symlinks/plugins/share/ios"
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   share: bae0a282aab4483288913fc4dc0b935d4b491f2e
 
-PODFILE CHECKSUM: c6c865faff84807a5d35de69eb2cdbdc36b99e15
+PODFILE CHECKSUM: 3dbe063e9c90a5d7c9e4e76e70a821b9e2c1d271
 
 COCOAPODS: 1.7.5
