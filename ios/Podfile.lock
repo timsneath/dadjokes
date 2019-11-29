@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - share (0.5.2):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `/Users/timsneath/flutter/bin/cache/artifacts/engine/ios`)
+  - "share (from `/Users/timsneath/flutter/.pub-cache/hosted/pub.dartlang.org/share-0.6.3+3/ios`)"
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: "/Users/timsneath/flutter/bin/cache/artifacts/engine/ios"
+  share:
+    :path: "/Users/timsneath/flutter/.pub-cache/hosted/pub.dartlang.org/share-0.6.3+3/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  share: bae0a282aab4483288913fc4dc0b935d4b491f2e
+
+PODFILE CHECKSUM: c6c865faff84807a5d35de69eb2cdbdc36b99e15
+
+COCOAPODS: 1.7.5
