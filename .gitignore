@@ -27,8 +27,8 @@
 
 # Android related
 **/android/**/gradle-wrapper.jar
-**/android/.gradle
-**/android/captures/
+.gradle
+captures/
 **/android/gradlew
 **/android/gradlew.bat
 **/android/local.properties
