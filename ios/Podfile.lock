@@ -2,20 +2,26 @@ PODS:
   - Flutter (1.0.0)
   - share (0.5.2):
     - Flutter
+  - window_size (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - share (from `.symlinks/plugins/share/ios`)
+  - window_size (from `.symlinks/plugins/window_size/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
   share:
     :path: ".symlinks/plugins/share/ios"
+  window_size:
+    :path: ".symlinks/plugins/window_size/ios"
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   share: bae0a282aab4483288913fc4dc0b935d4b491f2e
+  window_size: f29415d2bad6afa324fe9b6206bd22d8116c7404
 
 PODFILE CHECKSUM: 3dbe063e9c90a5d7c9e4e76e70a821b9e2c1d271
 

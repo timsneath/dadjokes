@@ -1,6 +1,9 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:share/share.dart';
+import 'package:window_size/window_size.dart' as window_size;
 
 import 'package:dadjokes/jokeserver.dart';
 import 'package:dadjokes/joke.dart';
@@ -24,7 +27,15 @@ const dadJokesBlue = Color(0xFF5DBAF4);
 // lightweight app.
 Joke theJoke;
 
-void main() => runApp(DadJokesApp());
+void main() {
+  if (Platform.isMacOS) {
+    // This doesn't seem to be working... main() isn't hitting the debugger
+    // on macOS???
+    window_size.setWindowMinSize(Size(400, 300));
+    window_size.setWindowMaxSize(Size(800, 600));
+  }
+  runApp(DadJokesApp());
+}
 
 class DadJokesApp extends StatelessWidget {
   @override
@@ -80,6 +91,13 @@ class MainPageState extends State<MainPage> {
                     'https://icanhazdadjoke.com, with thanks.'),
             contentTextStyle: uiTextStyle,
             actions: <Widget>[
+              FlatButton.icon(
+                icon: Icon(Icons.library_books),
+                label: Text('License Info'),
+                onPressed: () {
+                  showLicensePage(context: context);
+                },
+              ),
               FlatButton.icon(
                 icon: Icon(Icons.done),
                 label: Text('Done'),
@@ -163,11 +181,12 @@ class MainPageState extends State<MainPage> {
               label: Text('About', style: uiTextStyle),
               onPressed: _aboutAction,
             ),
-            FlatButton.icon(
-              icon: Icon(Icons.share),
-              label: Text('Share', style: uiTextStyle),
-              onPressed: _shareAction,
-            ),
+            if (!Platform.isMacOS)
+              FlatButton.icon(
+                icon: Icon(Icons.share),
+                label: Text('Share', style: uiTextStyle),
+                onPressed: _shareAction,
+              ),
           ],
         ),
         // shape: CircularNotchedRectangle(),
