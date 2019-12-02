@@ -1,4 +1,5 @@
 import 'dart:io' show Platform;
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -28,11 +29,10 @@ const dadJokesBlue = Color(0xFF5DBAF4);
 Joke theJoke;
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isMacOS) {
-    // This doesn't seem to be working... main() isn't hitting the debugger
-    // on macOS???
-    window_size.setWindowMinSize(Size(400, 300));
-    window_size.setWindowMaxSize(Size(800, 600));
+    window_size.setWindowMinSize(Size(400, 400));
+    window_size.setWindowMaxSize(Size(600, 800));
   }
   runApp(DadJokesApp());
 }
