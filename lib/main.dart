@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:share/share.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:window_size/window_size.dart' as window_size;
 
 import 'package:dadjokes/jokeserver.dart';
@@ -12,14 +13,13 @@ import 'package:dadjokes/joke.dart';
 // Theme constants
 const appName = 'Dad Jokes';
 
-const jokeTextStyle = TextStyle(
-    fontFamily: 'Patrick Hand',
-    fontSize: 36,
-    fontStyle: FontStyle.normal,
-    fontWeight: FontWeight.normal,
-    color: Color(0xFF222222));
-
-const uiTextStyle = TextStyle(fontFamily: 'Poppins');
+final jokeTextStyle = GoogleFonts.patrickHand(
+    textStyle: TextStyle(
+        fontFamily: 'Patrick Hand',
+        fontSize: 36,
+        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.normal,
+        color: Color(0xFF222222)));
 
 const dadJokesBlue = Color(0xFF5DBAF4);
 
@@ -80,16 +80,14 @@ class MainPageState extends State<MainPage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('About Dad Jokes'),
-            titleTextStyle: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 20,
-            ),
+            titleTextStyle:
+                GoogleFonts.poppins(textStyle: TextStyle(fontSize: 20)),
             content:
                 Text('Dad jokes is brought to you by Tim Sneath (@timsneath), '
                     'proud dad of Naomi, Esther, and Silas. May your children '
                     'groan like mine do.\n\nDad jokes come from '
                     'https://icanhazdadjoke.com, with thanks.'),
-            contentTextStyle: uiTextStyle,
+            contentTextStyle: GoogleFonts.poppins(),
             actions: <Widget>[
               FlatButton.icon(
                 icon: Icon(Icons.library_books),
@@ -160,10 +158,7 @@ class MainPageState extends State<MainPage> {
         onPressed: _refreshAction,
         label: Text(
           'New Joke',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 20,
-          ),
+          style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 20)),
         ),
         icon: Icon(Icons.mood),
         elevation: 2.0,
@@ -178,13 +173,13 @@ class MainPageState extends State<MainPage> {
           children: <Widget>[
             FlatButton.icon(
               icon: Icon(Icons.info),
-              label: Text('About', style: uiTextStyle),
+              label: Text('About', style: GoogleFonts.poppins()),
               onPressed: _aboutAction,
             ),
             if (!Platform.isMacOS)
               FlatButton.icon(
                 icon: Icon(Icons.share),
-                label: Text('Share', style: uiTextStyle),
+                label: Text('Share', style: GoogleFonts.poppins()),
                 onPressed: _shareAction,
               ),
           ],

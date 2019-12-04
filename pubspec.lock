@@ -34,6 +34,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  google_fonts:
+    dependency: "direct main"
+    description:
+      name: google_fonts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.7"
   http:
     dependency: "direct main"
     description:
@@ -55,6 +62,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.8"
+  mustache:
+    dependency: transitive
+    description:
+      name: mustache
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.1"
   path:
     dependency: transitive
     description:
@@ -62,6 +76,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.4"
+  path_provider:
+    dependency: transitive
+    description:
+      name: path_provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.5"
   pedantic:
     dependency: "direct dev"
     description:
@@ -69,6 +90,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0+1"
+  platform:
+    dependency: transitive
+    description:
+      name: platform
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.1"
   share:
     dependency: "direct main"
     description:
@@ -124,5 +152,5 @@ packages:
     source: path
     version: "0.0.1"
 sdks:
-  dart: ">=2.2.2 <3.0.0"
-  flutter: ">=1.6.7 <2.0.0"
+  dart: ">=2.3.0 <3.0.0"
+  flutter: ">=1.9.1+hotfix.5 <2.0.0"
