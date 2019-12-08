@@ -40,7 +40,7 @@ packages:
       name: google_fonts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.7"
+    version: "0.1.0"
   http:
     dependency: "direct main"
     description:
@@ -82,14 +82,14 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.5"
+    version: "1.5.0"
   pedantic:
     dependency: "direct dev"
     description:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0+1"
+    version: "1.9.0"
   platform:
     dependency: transitive
     description:
@@ -103,7 +103,7 @@ packages:
       name: share
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.3+3"
+    version: "0.6.3+4"
   sky_engine:
     dependency: transitive
     description: flutter

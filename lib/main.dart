@@ -13,7 +13,7 @@ import 'package:dadjokes/joke.dart';
 // Theme constants
 const appName = 'Dad Jokes';
 
-final jokeTextStyle = GoogleFonts.patrickHand(
+final jokeTextStyle = GoogleFonts.patrickHandTextStyle(
     textStyle: TextStyle(
         fontFamily: 'Patrick Hand',
         fontSize: 36,
@@ -80,14 +80,14 @@ class MainPageState extends State<MainPage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('About Dad Jokes'),
-            titleTextStyle:
-                GoogleFonts.poppins(textStyle: TextStyle(fontSize: 20)),
+            titleTextStyle: GoogleFonts.poppinsTextStyle(
+                textStyle: TextStyle(fontSize: 20)),
             content:
                 Text('Dad jokes is brought to you by Tim Sneath (@timsneath), '
                     'proud dad of Naomi, Esther, and Silas. May your children '
                     'groan like mine do.\n\nDad jokes come from '
                     'https://icanhazdadjoke.com, with thanks.'),
-            contentTextStyle: GoogleFonts.poppins(),
+            contentTextStyle: GoogleFonts.poppinsTextStyle(),
             actions: <Widget>[
               FlatButton.icon(
                 icon: Icon(Icons.library_books),
@@ -158,7 +158,8 @@ class MainPageState extends State<MainPage> {
         onPressed: _refreshAction,
         label: Text(
           'New Joke',
-          style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 20)),
+          style:
+              GoogleFonts.poppinsTextStyle(textStyle: TextStyle(fontSize: 20)),
         ),
         icon: Icon(Icons.mood),
         elevation: 2.0,
@@ -173,13 +174,13 @@ class MainPageState extends State<MainPage> {
           children: <Widget>[
             FlatButton.icon(
               icon: Icon(Icons.info),
-              label: Text('About', style: GoogleFonts.poppins()),
+              label: Text('About', style: GoogleFonts.poppinsTextStyle()),
               onPressed: _aboutAction,
             ),
             if (!Platform.isMacOS)
               FlatButton.icon(
                 icon: Icon(Icons.share),
-                label: Text('Share', style: GoogleFonts.poppins()),
+                label: Text('Share', style: GoogleFonts.poppinsTextStyle()),
                 onPressed: _shareAction,
               ),
           ],
