@@ -45,6 +45,7 @@ class DadJokesApp extends StatelessWidget {
           primaryColor: dadJokesBlue,
           brightness: Brightness.dark,
           accentColor: Color(0xD7A51E),
+          textTheme: GoogleFonts.poppinsTextTheme(),
         ),
         home: MainPage(title: appName),
       );
@@ -63,25 +64,24 @@ class MainPageState extends State<MainPage> {
   Future<Joke> joke;
 
   @override
-  initState() {
-    super.initState();
+  void initState() {
     joke = JokeServer().fetchJoke();
+    super.initState();
   }
 
-  _refreshAction() {
+  void _refreshAction() {
     setState(() {
       joke = JokeServer().fetchJoke();
     });
   }
 
-  _aboutAction() {
+  void _aboutAction() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('About Dad Jokes'),
-            titleTextStyle: GoogleFonts.poppinsTextStyle(
-                textStyle: TextStyle(fontSize: 20)),
+            titleTextStyle: GoogleFonts.poppinsTextStyle(fontSize: 20),
             content:
                 Text('Dad jokes is brought to you by Tim Sneath (@timsneath), '
                     'proud dad of Naomi, Esther, and Silas. May your children '
@@ -108,7 +108,7 @@ class MainPageState extends State<MainPage> {
         });
   }
 
-  _shareAction() {
+  void _shareAction() {
     Share.share(theJoke.body);
   }
 
@@ -122,7 +122,7 @@ class MainPageState extends State<MainPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: Image.asset(
-                "assets/title-image.png",
+                'assets/title-image.png',
                 fit: BoxFit.fitWidth,
                 filterQuality: FilterQuality.high,
               ),
@@ -158,8 +158,7 @@ class MainPageState extends State<MainPage> {
         onPressed: _refreshAction,
         label: Text(
           'New Joke',
-          style:
-              GoogleFonts.poppinsTextStyle(textStyle: TextStyle(fontSize: 20)),
+          style: GoogleFonts.poppinsTextStyle(fontSize: 20),
         ),
         icon: Icon(Icons.mood),
         elevation: 2.0,
@@ -174,13 +173,13 @@ class MainPageState extends State<MainPage> {
           children: <Widget>[
             FlatButton.icon(
               icon: Icon(Icons.info),
-              label: Text('About', style: GoogleFonts.poppinsTextStyle()),
+              label: Text('About'),
               onPressed: _aboutAction,
             ),
             if (!Platform.isMacOS)
               FlatButton.icon(
                 icon: Icon(Icons.share),
-                label: Text('Share', style: GoogleFonts.poppinsTextStyle()),
+                label: Text('Share'),
                 onPressed: _shareAction,
               ),
           ],
@@ -225,18 +224,20 @@ class JokeWidget extends StatelessWidget {
               ),
               title: Text(
                 'Network error',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color: Color(0xFF333333),
+                style: GoogleFonts.poppinsTextStyle(
+                  textStyle: TextStyle(
+                    color: Color(0xFF333333),
+                  ),
                 ),
               ),
               subtitle: Text(
                 'Sorry - this isn\'t funny, we know, but our jokes '
                 'come directly from the Internet for maximum freshness. '
                 'We can\'t reach the server: network issues, perhaps?',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color: Color(0xFF333333),
+                style: GoogleFonts.poppinsTextStyle(
+                  textStyle: TextStyle(
+                    color: Color(0xFF333333),
+                  ),
                 ),
               ),
             ),
