@@ -45,7 +45,9 @@ class DadJokesApp extends StatelessWidget {
           primaryColor: dadJokesBlue,
           brightness: Brightness.dark,
           accentColor: Color(0xD7A51E),
-          textTheme: GoogleFonts.poppinsTextTheme(),
+          textTheme: GoogleFonts.poppinsTextTheme(
+            textTheme: Theme.of(context).textTheme,
+          ),
         ),
         home: MainPage(title: appName),
       );
@@ -184,7 +186,6 @@ class MainPageState extends State<MainPage> {
               ),
           ],
         ),
-        // shape: CircularNotchedRectangle(),
         color: Color(0xFF118DDE),
       ),
     );
