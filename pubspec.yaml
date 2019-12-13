@@ -6,30 +6,22 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.12.0+2
-  share: ^0.6.3+3
+  share: ^0.6.3+5
   auto_size_text: ^2.1.0
-  google_fonts: ^0.1.0
+  google_fonts: ^0.2.0
 
   window_size:
     path: plugins/window_size
 
 
 dev_dependencies:
-  pedantic: ^1.8.0+1
+  pedantic: ^1.9.0
 flutter_launcher_icons: ^0.7.4
 
 flutter:
   uses-material-design: true
   assets:
    - assets/title-image.png
-  fonts:
-    - family: Patrick Hand
-      fonts:
-       - asset: assets/fonts/PatrickHand-Regular.ttf
-    - family: Poppins
-      fonts:
-      - asset: assets/fonts/Poppins-Medium.ttf
-        weight: 500
 
 # On changing the icons below, run:
 #   flutter packages run flutter_launcher_icons:main

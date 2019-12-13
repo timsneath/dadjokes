@@ -40,7 +40,7 @@ packages:
       name: google_fonts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0"
+    version: "0.2.0"
   http:
     dependency: "direct main"
     description:
@@ -62,13 +62,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.8"
-  mustache:
-    dependency: transitive
-    description:
-      name: mustache
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.1"
   path:
     dependency: transitive
     description:
@@ -103,7 +96,7 @@ packages:
       name: share
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.3+4"
+    version: "0.6.3+5"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -153,4 +146,4 @@ packages:
     version: "0.0.1"
 sdks:
   dart: ">=2.3.0 <3.0.0"
-  flutter: ">=1.9.1+hotfix.5 <2.0.0"
+  flutter: ">=1.10.0 <2.0.0"

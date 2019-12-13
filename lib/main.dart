@@ -13,7 +13,7 @@ import 'package:dadjokes/joke.dart';
 // Theme constants
 const appName = 'Dad Jokes';
 
-final jokeTextStyle = GoogleFonts.patrickHandTextStyle(
+final jokeTextStyle = GoogleFonts.patrickHand(
     textStyle: TextStyle(
         fontFamily: 'Patrick Hand',
         fontSize: 36,
@@ -46,7 +46,7 @@ class DadJokesApp extends StatelessWidget {
           brightness: Brightness.dark,
           accentColor: Color(0xD7A51E),
           textTheme: GoogleFonts.poppinsTextTheme(
-            textTheme: Theme.of(context).textTheme,
+            Theme.of(context).textTheme,
           ),
         ),
         home: MainPage(title: appName),
@@ -83,13 +83,13 @@ class MainPageState extends State<MainPage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('About Dad Jokes'),
-            titleTextStyle: GoogleFonts.poppinsTextStyle(fontSize: 20),
+            titleTextStyle: GoogleFonts.poppins(fontSize: 20),
             content:
                 Text('Dad jokes is brought to you by Tim Sneath (@timsneath), '
                     'proud dad of Naomi, Esther, and Silas. May your children '
                     'groan like mine do.\n\nDad jokes come from '
                     'https://icanhazdadjoke.com, with thanks.'),
-            contentTextStyle: GoogleFonts.poppinsTextStyle(),
+            contentTextStyle: GoogleFonts.poppins(),
             actions: <Widget>[
               FlatButton.icon(
                 icon: Icon(Icons.library_books),
@@ -160,7 +160,7 @@ class MainPageState extends State<MainPage> {
         onPressed: _refreshAction,
         label: Text(
           'New Joke',
-          style: GoogleFonts.poppinsTextStyle(fontSize: 20),
+          style: GoogleFonts.poppins(fontSize: 20),
         ),
         icon: Icon(Icons.mood),
         elevation: 2.0,
@@ -225,7 +225,7 @@ class JokeWidget extends StatelessWidget {
               ),
               title: Text(
                 'Network error',
-                style: GoogleFonts.poppinsTextStyle(
+                style: GoogleFonts.poppins(
                   textStyle: TextStyle(
                     color: Color(0xFF333333),
                   ),
@@ -235,7 +235,7 @@ class JokeWidget extends StatelessWidget {
                 'Sorry - this isn\'t funny, we know, but our jokes '
                 'come directly from the Internet for maximum freshness. '
                 'We can\'t reach the server: network issues, perhaps?',
-                style: GoogleFonts.poppinsTextStyle(
+                style: GoogleFonts.poppins(
                   textStyle: TextStyle(
                     color: Color(0xFF333333),
                   ),
