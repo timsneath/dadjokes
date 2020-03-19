@@ -5,14 +5,16 @@ description: A collection of terrible jokes.
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.12.0+2
-  share: ^0.6.3+5
+  http: ^0.12.0+4
+  share: ^0.6.3+6
   auto_size_text: ^2.1.0
-  google_fonts: ^0.2.0
+  google_fonts: ^0.3.10
 
   window_size:
-    path: plugins/window_size
-
+    git:
+      url: git://github.com/google/flutter-desktop-embedding.git
+      path: plugins/window_size
+      ref: 888f58887b388f5e875662e1def33f2d12696564
 
 dev_dependencies:
   pedantic: ^1.9.0

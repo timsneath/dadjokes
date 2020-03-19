@@ -4,7 +4,7 @@ import 'package:dadjokes/joke.dart';
 import 'package:http/http.dart' as http;
 
 class JokeServer {
-  final dadJokeApi = "https://icanhazdadjoke.com/";
+  final dadJokeApi = 'https://icanhazdadjoke.com/';
   final httpHeaders = const {
     'User-Agent': 'DadJokes (https://github.com/timsneath/dadjokes)',
     'Accept': 'application/json',
