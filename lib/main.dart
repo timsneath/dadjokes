@@ -42,6 +42,7 @@ class DadJokesApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         title: appName,
         theme: ThemeData(
+          visualDensity: VisualDensity.adaptivePlatformDensity,
           primaryColor: dadJokesBlue,
           brightness: Brightness.dark,
           accentColor: Color(0xD7A51E),
