@@ -1,5 +1,5 @@
 # Dad Jokes
-[![Codemagic build status](https://api.codemagic.io/apps/5c1af2555f17ad0021ca3c9b/5c1af2555f17ad0021ca3c9a/status_badge.svg)](https://codemagic.io/apps/5c1af2555f17ad0021ca3c9b/5c1af2555f17ad0021ca3c9a/latest_build)
+[![Codemagic build status](https://api.codemagic.io/apps/5eb6f5cd05289f3156c302d3/5eb6f5cd05289f3156c302d2/status_badge.svg)](https://codemagic.io/apps/5eb6f5cd05289f3156c302d3/5eb6f5cd05289f3156c302d2/latest_build)
 
 A fun little app for groan-worthy dad jokes.
 
