@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.12.1
-  share: ^0.6.4+1
+  share: '>=0.6.4+1 <2.0.0'
   auto_size_text: ^2.1.0
   google_fonts: ^1.0.0
 
