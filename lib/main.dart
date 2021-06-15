@@ -14,7 +14,7 @@ import 'package:dadjokes/joke.dart';
 const appName = 'Dad Jokes';
 
 final jokeTextStyle = GoogleFonts.patrickHand(
-    textStyle: TextStyle(
+    textStyle: const TextStyle(
         fontFamily: 'Patrick Hand',
         fontSize: 36,
         fontStyle: FontStyle.normal,
@@ -26,18 +26,20 @@ const dadJokesBlue = Color(0xFF5DBAF4);
 // We store the joke as global state so it can be used in other places. We
 // could create a BLoC, but that really seems a little overkill for this
 // lightweight app.
-Joke theJoke;
+Joke? theJoke;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isMacOS) {
-    window_size.setWindowMinSize(Size(400, 400));
-    window_size.setWindowMaxSize(Size(600, 800));
+    window_size.setWindowMinSize(const Size(400, 400));
+    window_size.setWindowMaxSize(const Size(600, 800));
   }
-  runApp(DadJokesApp());
+  runApp(const DadJokesApp());
 }
 
 class DadJokesApp extends StatelessWidget {
+  const DadJokesApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final themeData = ThemeData(
@@ -50,15 +52,16 @@ class DadJokesApp extends StatelessWidget {
     return MaterialApp(
       title: appName,
       theme: themeData.copyWith(
-        colorScheme: themeData.colorScheme.copyWith(secondary: Color(0xD7A51E)),
+        colorScheme:
+            themeData.colorScheme.copyWith(secondary: const Color(0xFFD7A51E)),
       ),
-      home: MainPage(title: appName),
+      home: const MainPage(title: appName),
     );
   }
 }
 
 class MainPage extends StatefulWidget {
-  MainPage({Key key, this.title}) : super(key: key);
+  const MainPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -67,7 +70,7 @@ class MainPage extends StatefulWidget {
 }
 
 class MainPageState extends State<MainPage> {
-  Future<Joke> joke;
+  Future<Joke>? joke;
 
   @override
   void initState() {
@@ -86,25 +89,25 @@ class MainPageState extends State<MainPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('About Dad Jokes'),
+            title: const Text('About Dad Jokes'),
             titleTextStyle: GoogleFonts.poppins(fontSize: 20),
-            content:
-                Text('Dad jokes is brought to you by Tim Sneath (@timsneath), '
-                    'proud dad of Naomi, Esther, and Silas. May your children '
-                    'groan like mine do.\n\nDad jokes come from '
-                    'https://icanhazdadjoke.com, with thanks.'),
+            content: const Text(
+                'Dad jokes is brought to you by Tim Sneath (@timsneath), '
+                'proud dad of Naomi, Esther, and Silas. May your children '
+                'groan like mine do.\n\nDad jokes come from '
+                'https://icanhazdadjoke.com, with thanks.'),
             contentTextStyle: GoogleFonts.poppins(),
             actions: <Widget>[
               TextButton.icon(
-                icon: Icon(Icons.library_books),
-                label: Text('License Info'),
+                icon: const Icon(Icons.library_books),
+                label: const Text('License Info'),
                 onPressed: () {
                   showLicensePage(context: context);
                 },
               ),
               TextButton.icon(
-                icon: Icon(Icons.done),
-                label: Text('Done'),
+                icon: const Icon(Icons.done),
+                label: const Text('Done'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -115,7 +118,10 @@ class MainPageState extends State<MainPage> {
   }
 
   void _shareAction() {
-    Share.share(theJoke.body);
+    final joke = theJoke;
+    if (joke != null) {
+      Share.share(joke.body);
+    }
   }
 
   @override
@@ -137,9 +143,9 @@ class MainPageState extends State<MainPage> {
             // JOKE
             Expanded(
               child: Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 child: DecoratedBox(
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     color: Color(0x55FFFFFF),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -147,7 +153,7 @@ class MainPageState extends State<MainPage> {
                   ),
                   child: Center(
                     child: JokeWidget(
-                      joke: joke,
+                      joke: joke!,
                       refreshCallback: _refreshAction,
                     ),
                   ),
@@ -160,13 +166,13 @@ class MainPageState extends State<MainPage> {
 
       // NEW JOKE BUTTON
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Color(0xFFBAE2FC),
+        backgroundColor: const Color(0xFFBAE2FC),
         onPressed: _refreshAction,
         label: Text(
           'New Joke',
           style: GoogleFonts.poppins(fontSize: 20),
         ),
-        icon: Icon(Icons.mood),
+        icon: const Icon(Icons.mood),
         elevation: 2.0,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -178,19 +184,19 @@ class MainPageState extends State<MainPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             TextButton.icon(
-              icon: Icon(Icons.info),
-              label: Text('About'),
+              icon: const Icon(Icons.info),
+              label: const Text('About'),
               onPressed: _aboutAction,
             ),
             if (!Platform.isMacOS)
               TextButton.icon(
-                icon: Icon(Icons.share),
-                label: Text('Share'),
+                icon: const Icon(Icons.share),
+                label: const Text('Share'),
                 onPressed: _shareAction,
               ),
           ],
         ),
-        color: Color(0xFF118DDE),
+        color: const Color(0xFF118DDE),
       ),
     );
   }
@@ -198,9 +204,11 @@ class MainPageState extends State<MainPage> {
 
 class JokeWidget extends StatelessWidget {
   final Future<Joke> joke;
-  final refreshCallback;
+  final void Function() refreshCallback;
 
-  JokeWidget({Key key, this.joke, this.refreshCallback}) : super(key: key);
+  const JokeWidget(
+      {Key? key, required this.joke, required this.refreshCallback})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +221,7 @@ class JokeWidget extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8),
             child: AutoSizeText(
-              snapshot.data.body,
+              snapshot.data?.body ?? '',
               style: jokeTextStyle,
             ),
           );
@@ -223,14 +231,14 @@ class JokeWidget extends StatelessWidget {
         else if (snapshot.hasError || snapshot.data?.status == 500) {
           return Center(
             child: ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.block,
                 color: Color(0xFF333333),
               ),
               title: Text(
                 'Network error',
                 style: GoogleFonts.poppins(
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                     color: Color(0xFF333333),
                   ),
                 ),
@@ -240,7 +248,7 @@ class JokeWidget extends StatelessWidget {
                 'come directly from the Internet for maximum freshness. '
                 'We can\'t reach the server: network issues, perhaps?',
                 style: GoogleFonts.poppins(
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                     color: Color(0xFF333333),
                   ),
                 ),
@@ -251,7 +259,7 @@ class JokeWidget extends StatelessWidget {
 
         // We're still just loading
         else {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
       },
     );

@@ -3,7 +3,7 @@ class Joke {
   final String body;
   final int status;
 
-  Joke({this.id, this.body, this.status});
+  Joke({required this.id, required this.body, required this.status});
 
   factory Joke.fromJson(Map<String, dynamic> json) {
     return Joke(

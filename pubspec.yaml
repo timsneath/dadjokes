@@ -1,29 +1,29 @@
 name: dadjokes
-version: 3.0.2
+version: 3.1.0
 description: A collection of terrible jokes.
 
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.12.1
-  share: '>=0.6.4+1 <2.0.0'
-  auto_size_text: ^2.1.0
-  google_fonts: ^1.0.0
+  http: ^0.13.3
+  share: ^2.0.4
+  auto_size_text: ^3.0.0-nullsafety.0
+  google_fonts: ^2.1.0
 
   window_size:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
-      ref: 4ee135c8870c94aa462f2006025d5840e9ca82e2
+      ref: e48abe7c3e9ebfe0b81622167c5201d4e783bb81
 
 dev_dependencies:
-  pedantic: ^1.9.0
-  flutter_launcher_icons: ^0.7.5
+  flutter_lints: ^1.0.3
+  flutter_launcher_icons: ^0.9.0
 
 flutter:
   uses-material-design: true
