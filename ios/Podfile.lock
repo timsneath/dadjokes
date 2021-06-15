@@ -2,39 +2,27 @@ PODS:
   - Flutter (1.0.0)
   - path_provider (0.0.1):
     - Flutter
-  - path_provider_macos (0.0.1):
-    - Flutter
   - share (0.0.1):
-    - Flutter
-  - window_size (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
-  - path_provider_macos (from `.symlinks/plugins/path_provider_macos/ios`)
   - share (from `.symlinks/plugins/share/ios`)
-  - window_size (from `.symlinks/plugins/window_size/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
-  path_provider_macos:
-    :path: ".symlinks/plugins/path_provider_macos/ios"
   share:
     :path: ".symlinks/plugins/share/ios"
-  window_size:
-    :path: ".symlinks/plugins/window_size/ios"
 
 SPEC CHECKSUMS:
-  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
-  path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   share: 0b2c3e82132f5888bccca3351c504d0003b3b410
-  window_size: f29415d2bad6afa324fe9b6206bd22d8116c7404
 
-PODFILE CHECKSUM: c34e2287a9ccaa606aeceab922830efb9a6ff69a
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0
