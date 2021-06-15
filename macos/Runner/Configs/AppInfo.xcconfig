@@ -11,4 +11,4 @@ PRODUCT_NAME = Dad Jokes
 PRODUCT_BUNDLE_IDENTIFIER = org.sneath.dadjokes
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2020 Tim Sneath. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2021 Tim Sneath. All rights reserved.
