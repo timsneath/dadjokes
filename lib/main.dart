@@ -39,19 +39,22 @@ void main() {
 
 class DadJokesApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        title: appName,
-        theme: ThemeData(
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          primaryColor: dadJokesBlue,
-          brightness: Brightness.dark,
-          accentColor: Color(0xD7A51E),
-          textTheme: GoogleFonts.poppinsTextTheme(
-            Theme.of(context).textTheme,
-          ),
-        ),
-        home: MainPage(title: appName),
-      );
+  Widget build(BuildContext context) {
+    final themeData = ThemeData(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primaryColor: dadJokesBlue,
+        brightness: Brightness.dark,
+        textTheme: GoogleFonts.poppinsTextTheme(
+          Theme.of(context).textTheme,
+        ));
+    return MaterialApp(
+      title: appName,
+      theme: themeData.copyWith(
+        colorScheme: themeData.colorScheme.copyWith(secondary: Color(0xD7A51E)),
+      ),
+      home: MainPage(title: appName),
+    );
+  }
 }
 
 class MainPage extends StatefulWidget {
@@ -92,14 +95,14 @@ class MainPageState extends State<MainPage> {
                     'https://icanhazdadjoke.com, with thanks.'),
             contentTextStyle: GoogleFonts.poppins(),
             actions: <Widget>[
-              FlatButton.icon(
+              TextButton.icon(
                 icon: Icon(Icons.library_books),
                 label: Text('License Info'),
                 onPressed: () {
                   showLicensePage(context: context);
                 },
               ),
-              FlatButton.icon(
+              TextButton.icon(
                 icon: Icon(Icons.done),
                 label: Text('Done'),
                 onPressed: () {
@@ -174,13 +177,13 @@ class MainPageState extends State<MainPage> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            FlatButton.icon(
+            TextButton.icon(
               icon: Icon(Icons.info),
               label: Text('About'),
               onPressed: _aboutAction,
             ),
             if (!Platform.isMacOS)
-              FlatButton.icon(
+              TextButton.icon(
                 icon: Icon(Icons.share),
                 label: Text('Share'),
                 onPressed: _shareAction,
