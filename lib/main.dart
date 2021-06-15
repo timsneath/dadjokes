@@ -1,6 +1,7 @@
 import 'dart:io' show Platform;
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:share/share.dart';
@@ -30,9 +31,11 @@ Joke? theJoke;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  if (Platform.isMacOS) {
-    window_size.setWindowMinSize(const Size(400, 400));
-    window_size.setWindowMaxSize(const Size(600, 800));
+  if (!kIsWeb) {
+    if (Platform.isMacOS) {
+      window_size.setWindowMinSize(const Size(400, 400));
+      window_size.setWindowMaxSize(const Size(600, 800));
+    }
   }
   runApp(const DadJokesApp());
 }
@@ -188,7 +191,7 @@ class MainPageState extends State<MainPage> {
               label: const Text('About'),
               onPressed: _aboutAction,
             ),
-            if (!Platform.isMacOS)
+            if (!kIsWeb && !Platform.isMacOS)
               TextButton.icon(
                 icon: const Icon(Icons.share),
                 label: const Text('Share'),
