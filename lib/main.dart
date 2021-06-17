@@ -45,18 +45,15 @@ class DadJokesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeData = ThemeData(
+    return MaterialApp(
+      title: appName,
+      theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
         primaryColor: dadJokesBlue,
         brightness: Brightness.dark,
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme,
-        ));
-    return MaterialApp(
-      title: appName,
-      theme: themeData.copyWith(
-        colorScheme:
-            themeData.colorScheme.copyWith(secondary: const Color(0xFFD7A51E)),
+        ),
       ),
       home: const MainPage(title: appName),
     );
@@ -190,12 +187,14 @@ class MainPageState extends State<MainPage> {
               icon: const Icon(Icons.info),
               label: const Text('About'),
               onPressed: _aboutAction,
+              style: TextButton.styleFrom(primary: Colors.lightBlue[50]),
             ),
             if (!kIsWeb && !Platform.isMacOS)
               TextButton.icon(
                 icon: const Icon(Icons.share),
                 label: const Text('Share'),
                 onPressed: _shareAction,
+                style: TextButton.styleFrom(primary: Colors.lightBlue[50]),
               ),
           ],
         ),
