@@ -3,7 +3,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:window_size/window_size.dart' as window_size;
 
@@ -31,7 +31,7 @@ Joke? theJoke;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   if (!kIsWeb) {
-    if (Platform.isMacOS) {
+    if (Platform.isMacOS || Platform.isWindows) {
       window_size.setWindowMinSize(const Size(400, 400));
       window_size.setWindowMaxSize(const Size(600, 800));
     }
