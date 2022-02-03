@@ -32,8 +32,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   if (!kIsWeb) {
     if (Platform.isMacOS || Platform.isWindows) {
-      window_size.setWindowMinSize(const Size(400, 400));
-      window_size.setWindowMaxSize(const Size(600, 800));
+      window_size.setWindowMinSize(const Size(600, 400));
     }
   }
   runApp(const DadJokesApp());
@@ -127,39 +126,35 @@ class MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: dadJokesBlue,
+      appBar: PreferredSize(
+        preferredSize: const Size(300, 100),
+        child: SizedBox(
+          child: Image.asset(
+            'assets/title-image.png',
+            fit: BoxFit.fitHeight,
+            filterQuality: FilterQuality.high,
+          ),
+        ),
+      ),
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Image.asset(
-                'assets/title-image.png',
-                fit: BoxFit.fitWidth,
-                filterQuality: FilterQuality.high,
+        child: Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(5),
+            child: DecoratedBox(
+              decoration: const ShapeDecoration(
+                color: Color(0x55FFFFFF),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
               ),
-            ),
-
-            // JOKE
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(5),
-                child: DecoratedBox(
-                  decoration: const ShapeDecoration(
-                    color: Color(0x55FFFFFF),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                  ),
-                  child: Center(
-                    child: JokeWidget(
-                      joke: joke!,
-                      refreshCallback: _refreshAction,
-                    ),
-                  ),
+              child: Center(
+                child: JokeWidget(
+                  joke: joke!,
+                  refreshCallback: _refreshAction,
                 ),
               ),
             ),
-          ],
+          ),
         ),
       ),
 
@@ -203,7 +198,7 @@ class MainPageState extends State<MainPage> {
   }
 }
 
-class JokeWidget extends StatelessWidget {
+class JokeWidget extends StatefulWidget {
   final Future<Joke> joke;
   final void Function() refreshCallback;
 
@@ -212,18 +207,26 @@ class JokeWidget extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<JokeWidget> createState() => _JokeWidgetState();
+}
+
+class _JokeWidgetState extends State<JokeWidget> {
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<Joke>(
-      future: joke,
+      future: widget.joke,
       builder: (BuildContext context, AsyncSnapshot<Joke> snapshot) {
         // We have a joke
         if (snapshot.hasData && snapshot.data?.status == 200) {
           theJoke = snapshot.data;
           return Padding(
             padding: const EdgeInsets.all(8),
-            child: AutoSizeText(
-              snapshot.data?.body ?? '',
-              style: jokeTextStyle,
+            child: Semantics(
+              liveRegion: true,
+              child: AutoSizeText(
+                snapshot.data?.body ?? '',
+                style: jokeTextStyle,
+              ),
             ),
           );
         }
