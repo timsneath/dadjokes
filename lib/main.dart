@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:window_size/window_size.dart' as window_size;
 
 import 'package:dadjokes/jokeserver.dart';
 import 'package:dadjokes/joke.dart';
@@ -30,12 +29,7 @@ Joke? theJoke;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  if (!kIsWeb) {
-    if (Platform.isMacOS || Platform.isWindows) {
-      window_size.setWindowMinSize(const Size(400, 400));
-      window_size.setWindowMaxSize(const Size(600, 800));
-    }
-  }
+
   runApp(const DadJokesApp());
 }
 
@@ -178,6 +172,7 @@ class MainPageState extends State<MainPage> {
 
       // APP BAR
       bottomNavigationBar: BottomAppBar(
+        color: const Color(0xFF118DDE),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -197,7 +192,6 @@ class MainPageState extends State<MainPage> {
               ),
           ],
         ),
-        color: const Color(0xFF118DDE),
       ),
     );
   }
