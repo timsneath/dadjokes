@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -15,8 +16,19 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
-  ApiCallResponse theJoke;
+  ApiCallResponse jokeResponse;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  ApiCallResponse jokeResponseFromButton;
+
+  @override
+  void initState() {
+    super.initState();
+    // On page load action.
+    SchedulerBinding.instance?.addPostFrameCallback((_) async {
+      jokeResponse = await DadjokeCall.call();
+      setState(() => FFAppState().displayJoke = (jokeResponse?.jsonBody ?? ''));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +37,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       backgroundColor: FlutterFlowTheme.of(context).primaryColor,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          theJoke = await DadjokeCall.call();
+          // Get Joke
+          jokeResponseFromButton = await DadjokeCall.call();
+          setState(() => FFAppState().displayJoke =
+              (jokeResponseFromButton?.jsonBody ?? ''));
 
           setState(() {});
         },
@@ -56,7 +71,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   'assets/images/title-image.png',
                   width: double.infinity,
                   height: 100,
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.contain,
                 ),
               ),
               Expanded(
@@ -98,7 +113,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   final textDadjokeResponse = snapshot.data;
                                   return AutoSizeText(
                                     getJsonField(
-                                      (theJoke?.jsonBody ?? ''),
+                                      FFAppState().displayJoke,
                                       r'''$.joke''',
                                     ).toString(),
                                     textAlign: TextAlign.start,
@@ -124,7 +139,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ),
                             onPressed: () async {
                               await Share.share(getJsonField(
-                                (theJoke?.jsonBody ?? ''),
+                                FFAppState().displayJoke,
                                 r'''$.joke''',
                               ).toString());
                             },

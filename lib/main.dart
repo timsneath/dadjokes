@@ -9,6 +9,8 @@ import 'index.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  FFAppState(); // Initialize FFAppState
+
   runApp(MyApp());
 }
 
